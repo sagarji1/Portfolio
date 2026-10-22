@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FBFBF9;
+    color: #121316;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1ee;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4ce;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8a89f;
+  }
+}
+
+/* Background grid patterns */
+.tech-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(18, 19, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 19, 22, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.tech-dot-pattern {
+  background-image: radial-gradient(rgba(18, 19, 22, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Code window syntax highlights */
+.token-keyword { color: #8b5cf6; font-weight: 500; }
+.token-function { color: #3b82f6; font-weight: 500; }
+.token-string { color: #15803d; }
+.token-number { color: #ea580c; }
+.token-comment { color: #94a3b8; font-style: italic; }
+.token-property { color: #0f172a; }
+.token-boolean { color: #d97706; }
