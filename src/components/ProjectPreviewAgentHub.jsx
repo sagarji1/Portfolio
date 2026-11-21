@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
-import { ShieldCheck, Play, Bot, Key, Database, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ShieldCheck, Play, Bot, Key, Database, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function ProjectPreviewAgentHub() {
   const [pipelineActive, setPipelineActive] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
+  const timerRefs = useRef([]);
+
+  const clearTimers = () => {
+    timerRefs.current.forEach((t) => clearTimeout(t));
+    timerRefs.current = [];
+  };
+
+  useEffect(() => {
+    return () => clearTimers();
+  }, []);
 
   const runPipeline = () => {
+    if (pipelineActive) return;
+    clearTimers();
     setPipelineActive(true);
     setActiveStep(1);
-    setTimeout(() => setActiveStep(2), 700);
-    setTimeout(() => setActiveStep(3), 1400);
-    setTimeout(() => {
+    const t1 = setTimeout(() => setActiveStep(2), 700);
+    const t2 = setTimeout(() => setActiveStep(3), 1400);
+    const t3 = setTimeout(() => {
       setActiveStep(0);
       setPipelineActive(false);
     }, 2400);
+    timerRefs.current = [t1, t2, t3];
   };
 
   return (
@@ -54,7 +67,11 @@ export default function ProjectPreviewAgentHub() {
             disabled={pipelineActive}
             className="flex items-center gap-1.5 px-3 py-1 rounded bg-lime-500 hover:bg-lime-400 text-neutral-950 font-sans font-semibold text-[11px] transition-all disabled:opacity-50"
           >
-            <Play className={`w-3 h-3 ${pipelineActive ? 'animate-spin' : ''}`} />
+            {pipelineActive ? (
+              <Loader2 className="w-3 h-3 animate-spin" />
+            ) : (
+              <Play className="w-3 h-3" />
+            )}
             {pipelineActive ? 'Executing...' : 'Test Workflow'}
           </button>
         </div>

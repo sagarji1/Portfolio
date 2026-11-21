@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Download } from 'lucide-react';
 
 export default function Button({
   children,
@@ -38,11 +38,17 @@ export default function Button({
 
   const combinedClass = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
 
+  const IconComponent = typeof icon === 'function' || typeof icon === 'object'
+    ? icon
+    : download
+      ? Download
+      : ArrowUpRight;
+
   const content = (
     <>
       <span>{children}</span>
       {icon && (
-        <ArrowUpRight
+        <IconComponent
           className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           aria-hidden="true"
         />
@@ -57,7 +63,7 @@ export default function Button({
         className={combinedClass}
         target={external ? '_blank' : undefined}
         rel={external ? 'noopener noreferrer' : undefined}
-        download={download}
+        download={download ? true : undefined}
         {...props}
       >
         {content}

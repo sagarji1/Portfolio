@@ -11,6 +11,7 @@ export const personalInfo = {
   role: "Full-Stack Web Developer",
   education: "Computer Engineering Student",
   institution: "Delhi Skill and Entrepreneurship University (DSEU)",
+  institutionShort: "DSEU",
   location: "Delhi NCR, India",
   
   // NOTE: Replace this placeholder with your verified email address
@@ -72,24 +73,10 @@ export const services = [
   },
   {
     number: "02",
-    title: "Full-Stack Web Development",
-    description:
-      "End-to-end web applications connecting responsive frontend interfaces with structured backend APIs, databases, and authenticated user flows.",
-    skills: ["MERN Stack", "Next.js", "State Management", "REST Integration", "Full Lifecycle"],
-  },
-  {
-    number: "03",
     title: "Backend & API Development",
     description:
       "REST API design, server-side business logic, MongoDB database integration, data validation, and secure JWT-based authentication.",
     skills: ["Node.js", "Express.js", "MongoDB / Mongoose", "JWT Security", "Input Validation"],
-  },
-  {
-    number: "04",
-    title: "Website UI Implementation",
-    description:
-      "Translating ideas, wireframes, and design specs into high-fidelity, accessible, and fast web experiences that look sharp on any device.",
-    skills: ["Design-to-Code", "Modern CSS", "Accessibility (a11y)", "Cross-Browser Testing"],
   },
 ];
 

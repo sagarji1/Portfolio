@@ -45,7 +45,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EDEDE7] border border-[#DCDCD5] text-xs font-mono text-[#38393D]">
                 <span className="w-2 h-2 rounded-full bg-lime-500 animate-pulse" />
                 <span className="font-semibold text-neutral-800">{personalInfo.status.badge}</span>
-                <span className="text-[#84858B] hidden sm:inline">· {personalInfo.institution.split('(')[1]?.replace(')', '') || 'DSEU'}</span>
+                <span className="text-[#84858B] hidden sm:inline">· {personalInfo.institutionShort || 'DSEU'}</span>
               </div>
             </motion.div>
 

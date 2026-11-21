@@ -17,10 +17,28 @@ export default function Contact() {
   const [status, setStatus] = useState({ type: null, message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+  const handleCopyEmail = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(personalInfo.email);
+      } else {
+        // Fallback for older browsers or non-secure contexts
+        const textArea = document.createElement('textarea');
+        textArea.value = personalInfo.email;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+      }
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy email to clipboard', err);
+    }
   };
 
   const handleChange = (e) => {

@@ -20,15 +20,18 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Determine active section
+      // Determine active section using document top position
       const sections = ['home', 'services', 'resume', 'work', 'contact'];
       const scrollPosition = window.scrollY + 140;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (top <= scrollPosition) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
       }
     };
@@ -38,6 +41,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+    if (mobileMenuOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [mobileMenuOpen]);
+
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setMobileMenuOpen(false);
@@ -46,7 +61,7 @@ export default function Navbar() {
     if (element) {
       const navOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      const offsetPosition = elementPosition + window.scrollY - navOffset;
 
       window.scrollTo({
         top: offsetPosition,

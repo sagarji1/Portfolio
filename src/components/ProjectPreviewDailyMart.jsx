@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, Search, Plus, Check, Star, Filter } from 'lucide-react';
 
 export default function ProjectPreviewDailyMart() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [cartCount, setCartCount] = useState(3);
   const [addedItem, setAddedItem] = useState(null);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const categories = ['All', 'Fruits', 'Vegetables', 'Dairy', 'Bakery'];
 
@@ -44,7 +51,8 @@ export default function ProjectPreviewDailyMart() {
   const handleAddToCart = (id) => {
     setCartCount((prev) => prev + 1);
     setAddedItem(id);
-    setTimeout(() => setAddedItem(null), 1200);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setAddedItem(null), 1200);
   };
 
   const filteredProducts =
